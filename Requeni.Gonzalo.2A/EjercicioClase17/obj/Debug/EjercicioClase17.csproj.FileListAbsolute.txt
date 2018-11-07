@@ -1,0 +1,7 @@
+D:\VisualStudio\Requeni.Gonzalo.2A\EjercicioClase17\obj\Debug\EjercicioClase17.csprojAssemblyReference.cache
+D:\VisualStudio\Requeni.Gonzalo.2A\EjercicioClase17\obj\Debug\EjercicioClase17.csproj.CoreCompileInputs.cache
+D:\VisualStudio\Requeni.Gonzalo.2A\EjercicioClase17\bin\Debug\EjercicioClase17.exe.config
+D:\VisualStudio\Requeni.Gonzalo.2A\EjercicioClase17\bin\Debug\EjercicioClase17.exe
+D:\VisualStudio\Requeni.Gonzalo.2A\EjercicioClase17\bin\Debug\EjercicioClase17.pdb
+D:\VisualStudio\Requeni.Gonzalo.2A\EjercicioClase17\obj\Debug\EjercicioClase17.exe
+D:\VisualStudio\Requeni.Gonzalo.2A\EjercicioClase17\obj\Debug\EjercicioClase17.pdb
