@@ -1,0 +1,209 @@
+En los dos archvos descomprimidos tenemos la info necesario:
+
+ Productos_log.ldf -> definicion estructrura de base de datos
+ Productos.mdf -> los datos que correspodnen a esa estructura
+
+-Ir a la ide y tratar de agregar la base de datos al motor:
+ mientras no esten agregadas no puedo hacer nada,
+Para agregar me paro en la carpeta "base de datos" , boton derecho "adjuntar"
+le damos a agregar , cuando vemos el archivo nos muestra solo el .mdf porque ya
+sabe que los dos tienen que ir siempre juntos es decir el .ldf con el .mdf.
+
+
+-C:archivos de programa\microsoft sql server\MSSQL11.SQLEXPRESS\DATA
+ PEGAMOS LOS ARCHIVOS EN ESTA DIRECCION Y AHORA FUNCIONA.
+
+-Ahora dentro de base de datos nos aparece Productos:
+ *en Productos hay varias carpetas , vamos a tabla y vamos a ver todo
+  el listado de tablas.
+  *Una base de daos relacional es un conjunto de tablas, una o mas, que se relacionan entre si
+   mediante una o varias columnas (n-no tiene limites) de estas tablas , la idea es crear relacion
+   para que me pueda brindar info de lo que contenga mi base de datos .
+ *Las tablas se pueden comparar con una matriz , con n columnas y n filas,
+  a diferencia cada una de estas columnas puede ser del tipo de dato distinto
+  al anterior o tal vez no , lo importante es que el tipo de  dato que tenemos 
+  en lasbases de microsoft coinciden con los tipos de datos que tenemos en visual studio
+  
+*en Productos\Tablas\dbo.Televisores : las columnas son de distintos tipos , el que esta en entero
+ va a admitir valores enteros , el de float , va a aceptar cualquier tipo de dato con decimales
+ y los detipo varchar van a admitir cualtipo de caracteres , en este caso tiene un maximo de 50 establecido
+ es una cadena variable de caracteres , yo le puedo dar el maximo que va a alojar esa columna,si yo guaro solo
+ 1 me guarda uno , se va achicando de acuerdo al contenido , si me excedo ,solo me va a guardar hasta el valor 
+ que le determinamos en este caso hasta 50.
+
+*Hay un campo que tiene "LLAVE DORADA" representa "LLAVE PRIMARIA" , lo que asegura es
+ que ningun valor de esa columna se va a poder repetir en los "n" registros que tenga la tabla
+ y ese valor no va a poder ser Nulo , esta indexado , la busqueda en sus campos van a poder ser buscados mas rapido
+ puedo hacer varias columnas con primary key, si intento crear un valor que ya esta agregado en la primari key
+ genera excepcion en la base de datos y rompe.
+
+*Hay campo que van a permitir nulos y campos que no van a permitir nulos , eso lo podemos configurar nosotros
+ 
+-Si hago boton derechos sobre la tabla Televisores , esta la opcion seleccionar las primeras mil filas
+ me va a devolver el contenido de las primeras mil filas que contenga mi contenido actual de mi base de datos
+
+ *T-SQL : Arriba voy a ver el codigo que es un lenguaje de programacion dirigido a administrar bases de datos
+  tiene  su sintaxis.
+  A partir de este lenguaje puedo crear una base de datos desde cero , crear base de datos , tabla,
+  etc sin necesidad de tocar una linea de codigo de SQL , sin necesidad de saber como funciona el lenguaje.
+
+
+Instruccion SELECT : me permite seleccionar cierta cantidad de columnas de una tabla de mi bas de datos que yo quiera
+
+   -Sintaxis : Select campo1 , campo2 ,....,campon
+    es decir todo el litado de columnas que quiero obtener
+    puedo poner todos  los campos y cuando selecciono SALEN EN ESE ORDEN
+
+    -Si tengo muchos campos , se puede reemplazar por el "*" reemplaza los campos
+     pero en el orden ,que esta , si quiero cambiar el orden , tengo que cambiar el "*"
+
+ -La palabra FROM , indica de donde voy a sacar la info para los campos , ahi le tengo
+ que pasar el nombre de una TABLA
+  *Va a verificar que todos los campos que escribi en la lista coincidan con los campos de la tabla
+   que le pase en el from , si no lo hago me va a hacer una excepcion en tiempo de ejecucion en el motor de base de datos
+
+-A partir de esta BASE puedo hacer cualquier otro tipo de combinaciones
+
+ -Funcion TOP devuelve una cierta cantidad de filas y no todas, es la cantidad
+  de las primeras"x" filas que encuentre (las primeras mil).
+
+
+-Si necesito algun campo en particular , voy a poder restringir esos datos
+ a partir de la instruccion WHERE en la que puedo colocar REESTRICIONES,
+ en la CONDICION del WHERE puedo utilizar OPERADORESLOGICOS y puedo poner varias
+ reestriciones.
+ 
+
+
+
+Arriba de todo tenemos un comboBox , que esta en master , lo cambiamos a Productos o
+previo a la seleccion hacemos "USE PRODUCTOS " QUE ES COMO UN USING;
+
+
+
+En la condicion ponemos 1=1
+
+Podemos aplicarle ordenamientos a los registros que vamos a obtener , los podemos ordenar por algun tipo de criterio ,
+  ORDER BY "campo/s"que quiero ordenar. -> lo ordena dependiendo el criterio que queramos
+  podemos hacerlo ascendente o descendente (por default es ascendente)
+  VA SIEMPRE DESPUES DEL WHERE 
+
+ 
+Si mi  criterio de ordenamiento es mas complejo podemos hacer
+order by nombre "," apellido  -> la , permite varios criterios de ordenacion.
+
+
+-Puedo poner ALIAS A LA COLUMNA , la busqueda siempre se va a hacer por los nombres reales
+ de la base de datos , cuando lo MUESTRE me va a mostrar como el alias que le ponemos.
+
+
+
+
+-En c# abrimos app de consola:
+ 1º vamos a intentar establecer conexion entre mi aplicacion y el motor de base de datos.
+ 2º propiedades , configuracion , abre ventana que le indicamo el tipo de VARIABLE
+    para nuestra aplicacion
+ 3º EN "nombre" le ponemos "conexion" 
+ 4º En "tipo" seleccionamos "cadena de conexion" la cual es un string que tiene determinados
+   parametros y valores para que se pueda generar la conexion entre mi app y la base de datos.
+ 5º En "valor" muestra listados de distintos proveedores de datos instalados en la maquina
+    seleccionamos "Microsoft SQL Server" que hace referencia al motor de SQL que estamos trabajando
+ 6º Le damos click en continuar y nos pide : 
+    *origen de datos
+    *donde se encuentra el servidor , aca elegimos MI MAQUINA y agregar \SQLEXPRRES
+    *autenticacion lo dejamos por default "autenticacion de Windows"
+    *"seleccionar base de datos" es una referencia raiz  , nos muestra el mismo listado
+      que teniamos en la ide de base de datos , ahora elegimos "PRODUCTOS"
+    *PRIMERO ANTES DE "ACEPTAR" LE DAMOS A "PROBAR CONEXION" Y LUEGO A ACEPTAR 
+ 7º ahora en "valor" nos muestra un codigo necesario para ejecutarse
+ 8º Ahora necesitamos que nuestra app se conecte con la base de datos , agregamos
+    el "using system.Data.Sqlclient",  si me cambio a otra base de datos
+    cambio el using a ejemplo "OracleClient"
+ 9º SqlConnectio es un objeto que derivan de clase generica , son dependientes del proveedor
+    de datos , es decir que solo se va a conectar con motores del tipo de datos sql.     
+ 10º instaciamos y en el constructor le pasamos la cadena que creamos y ahi vamos a acceder
+     a "Properties.Settings.Default.conexion" conexion es lo que creamos en "configuracion".
+ 11º conexion.open , este abre la conexion y abajo conexion.close
+     LA UNICA FUNCION QUE TIENE ES ESTABLECER CONEXION ENTRE MI APLICACION Y MI BASE DE DATOS
+      SE CONECTA Y SE DESCONECTA
+ 12ºVamos a necesitar otro objeto para la parte de consultas , lo hacemos antes del CLOSE
+
+ 13º comando.CommandText; y el CommandType van de la mano , el commantype espera recibir
+     un enumerado con tres valores:
+      * Store Procedure   lo que tengo que tener colocado en el text es el nombre de una funcion que se va a 
+       guardar en el servidor de base de datos
+      * TableDirect lo que va a esperar recibir es el nombre de 
+      * Text -> lo que va a esperar en el commandtext es una consulta valida
+ 14º comando.conexion (propiedad) que le pasamos "sqlconnection".
+ 15º Trato de minimizar el tiempo en el que estoy conectado a mi base de datos, ya que consume
+     mucho recurso al servidor y no tarda nada enrealidad.No solo es el probelma de consumir recursos de mas
+     sino tambien por la cantidad de conexiones.Con este tipo de conexion es muy dificil que todos los usuarios
+     se conecten al mismo tiempo;
+ 16º Recien ahora ABRO EL "conexion.Open()"
+ 17º Falta ejecutar el comando , dependiendo la consulta que quierp hacer voy a tener distintos metodos
+     en este caso voy a "Execute.Reader" devuelve un objeto SqlDataReader(no expone ningun constructor como publico
+     no lo puedo instanciar pero si crear una variable
+     " SqlDataReader lector = comando.ExecuteReader();"
+      es un objeto de solo lectura y de solo AVANZE , una vez que leo mi objeto se elimina de la conexion
+      y no lo puedo recuperar mas .
+     VA LUEGO DEL conexion.Open;
+ 18º Vamos a crear estructura repetitivas , porque pueden devolver muchas filas , un o ninguna;
+      utilizamos un while , a ese lector aplicamos el metodo READ() el cual expone del data reader
+      los valores que tenga el registro a disposicion.
+      *lector[0] devuelve primer de las columnas de mi tabla
+      *otra forma es lector["id"] asociado a cadena tiene que ser la cadena que coincida con el campo
+       que tengo en mi base de datos ,ya sea el nombre del campo o el alias que yo le coloque;
+      Hacemos console.WiteLine ()
+  19º creamos clase televisores , en el while cada vez que leemos agregamos un televisor a la lista
+      en el constructor de televisor hay que castear lo de lectura , o podemos usar funciones
+      de reader:
+      *utilizamos lector.getint o getstring etc , esto lo que hacemos le pasamos entre parentesis
+       a la columna que queremos .
+
+  20º Agregamos los using data , xml , xml.serialization , vamos a serializar a xml el lsitado
+      de tvs que tenemos en nuetra lista generica para poder luego deserealizarlo.
+
+   Serializaion consiste en sacar un objeto de memoria , sacarle una  foto y guardarlo en un archivo
+   para que en cualquier momento ese objeto pueda a volver a memoria , lo unico que puedp serializar
+   son los ESTADOS DEL OBJETO ES DECIR LOS ATRIBUTOS , NUNCA VOY A PODER SERIALIZAR METODOS.
+
+  21º Vamos a serializar nuestra lista de TELEVISORES. 
+      necesitamos un objeto para serializar y otro para deseralizar
+       1º xmlserializer : se encarga de serializar cualquier tipo de objeto que queramos 
+           el constructor en una de las sobrecarga pide el tipo de objeto que voy a serializar
+           le pasamos la lista de TELEVISOR , no solo el objeto televisor porque tiene que saber 
+           que es una lista lo que va a serializar.
+       2º XmlTextWriter = es un escritor de archivos xml , requiere del path donde se va a escribir y el segundo parametro
+            es el juego de caracteres que se va a utilizar para escribit , voy al enumerado ecodign y pongo utf-8.
+       3º XmlTextReader solo necesita el path para leer todo
+
+       4º Sr.Serialize (): serializa el objeto , recibe dos parametros , el primero esel escritor de xml y el segundo el obj a ser serializado
+           va a verificar que el objeto que le estoy pasando coincida con el objeto que le pase en el constructor.
+       5º tira error cuando lo ejectutamos ya que el objeto que le pasemos tiene que tener un CONSTRUCTOR PUBLICO y tambien
+          hacer la CLASE PUBLICA
+       6º Vamos deserealizar :
+             sr.desrealize(le pasamos el xr) ; esto va a retornar un object , tengo que castearlo a algo de tipo <list> televisores
+
+       7ºSi tengo atributo privado de lista de paises , requiero almenos una propiedad de solo lecturas
+
+  22º volvemos a abrir el conexion , hacer otro execute reader
+  23º creamos DataTable  "DataTable dataTable = new DataTable("Televisor");" en el parametro el nombre del objeto
+  24º Cargamos el datTable con el contenido de datos , para hacer esto puede ser de manera manual estableciendo cada columna y sus tipos 
+      pero lo que podemos hacer es datatable(objeto que creamos).Load->admite como parametro un objeto de tipo "DataReader"
+      A este punto ya esta en memoria sin conectar datos.
+
+   25º Lo conveniente seria serializar el dataTable , uno va a ser la estructura y otro los datos:
+       uno es leer o escribir schema y el otro es leer o escribir.
+       1º escribir schema de nuestro data table y le pasamos un path donde escribir xml
+       2º escribir de nuestro data table y le pasamos otro path.
+       3º leemos schema y la direccion del archivo; primero leemos el esquema
+       4º readXml cargo los datos
+
+  26º Agregamos nuevo televisor a nuestra base de datos , generamos metodo en clase televisor que se llame insertar 
+       en el commandText agregamos campos e insertamos el compilador cheque que los tipos sean de los verdaderos
+      
+       insert into Televisores el objeto televisores puede llegar a cambiar. en el values tambien se pasa todo
+
+       a las cadenas le ponemos comillas simples '' a los tipos string.
+
+        ejecutamos command.executeNonQuery el cual ejecuta consultas que no van a retornar ningun tipo de resultado
